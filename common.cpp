@@ -39,9 +39,10 @@ double read_timer( )
 //
 //  keep density constant
 //
-void set_size( int n )
+double set_size( int n )
 {
     size = sqrt( density * n );
+    return size;
 }
 
 //

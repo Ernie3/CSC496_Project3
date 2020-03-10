@@ -10,6 +10,7 @@ inline int max( int a, int b ) { return a > b ? a : b; }
 const int NSTEPS = 1000;
 const int SAVEFREQ = 10;
 
+
 //
 // particle data structure
 //
@@ -31,7 +32,7 @@ double read_timer( );
 //
 //  simulation routines
 //
-void set_size( int n );
+double set_size( int n );
 void init_particles( int n, particle_t *p );
 void apply_force( particle_t &particle, particle_t &neighbor , double *dmin, double *davg, int *navg);
 void move( particle_t &p );
