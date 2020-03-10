@@ -1,13 +1,17 @@
+SHELL='bash'
 #
-# Edison - NERSC 
+# Bridges - PSC
 #
-# Intel Compilers are loaded by default; for other compilers please check the module list
+# Intel Compilers are loaded by default
+# You will need to specifically switch to GNU Modules
+# With with `modules.sh`
 #
-CC = CC
-MPCC = CC
-OPENMP = -fopenmp  #Note: this is the flag for Intel compilers. Change this to -fopenmp for GNU compilers. See http://www.nersc.gov/users/computational-systems/edison/programming/using-openmp/
-CFLAGS = -O3 -g 
-LIBS = -lstdc++
+
+CC = g++
+MPCC = mpic++
+OPENMP = -fopenmp
+CFLAGS = -O3
+LIBS =
 
 
 TARGETS = serial pthreads openmp mpi autograder
