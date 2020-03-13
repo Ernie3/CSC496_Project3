@@ -48,7 +48,7 @@ int main( int argc, char **argv )
     if (DEBUG) printf("The bins are of size %f by %f, err = %f\n", bin_y, bin_x, bin_x*bin_y*num_bins - grid_size*grid_size);
     init_grid(num_bins, bin_list);
     bin_particles(n, particles, num_bins, bin_list, bin_x, bin_y, bin_j);
-    //sanity_check(n, num_bins, bin_list);
+    if (DEBUG) sanity_check(n, num_bins, bin_list);
 
     //
     //  simulate a number of time steps
@@ -61,20 +61,20 @@ int main( int argc, char **argv )
        davg = 0.0;
 	   dmin = 1.0;
         //
-        //  compute forces, this is where the bins come in
+        //  compute forces
         //
 
         for(int i = 0; i < n; i++)
         {
             particles[i].ax = particles[i].ay = 0;
             int bin_r = particles[i].y / bin_y, bin_c = particles[i].x / bin_x;
+            
             // Traversing the neighbors
             for(int r = max(bin_r - 1, 0); r <= min(bin_r+1, bin_j - 1); r ++)
             {
                 for(int c = max(bin_c - 1, 0); c <= min(bin_c+1, bin_i - 1); c++)
                 {
                     bin_t neighbor = bin_list[r + c*bin_j];
-                    //printf("Neighbor index = %d with size: %d\n", r+c*bin_j, neighbor.bin_size);
                     for(int j = 0; j < neighbor.bin_size; j ++)
                         apply_force(particles[i], particles[neighbor.indeces[j]], &dmin, &davg, &navg);    
                 }
