@@ -5,8 +5,6 @@
 #include "common.h"
 #include "bin.h"
 
-#define DEBUG 0
-
 //
 //  benchmarking program
 //
@@ -41,14 +39,10 @@ int main( int argc, char **argv )
     // Set up bin sizes
     int bin_i, bin_j, num_bins = n % 4 == 0 ? n/4:n/4+1;
     bin_t *bin_list = (bin_t*) malloc(num_bins * sizeof(bin_t));
-    if (DEBUG) printf("Testing initializing bins: \n");
     set_grid_size(bin_i, bin_j, num_bins);
-    if (DEBUG) printf("There are %d bins, %d per row with %d rows.\n", num_bins, bin_i, bin_j);
     double bin_x = grid_size / bin_i, bin_y = grid_size / bin_j;
-    if (DEBUG) printf("The bins are of size %f by %f, err = %f\n", bin_y, bin_x, bin_x*bin_y*num_bins - grid_size*grid_size);
     init_grid(num_bins, bin_list);
     bin_particles(n, particles, num_bins, bin_list, bin_x, bin_y, bin_j);
-    if (DEBUG) sanity_check(n, num_bins, bin_list);
 
     //
     //  simulate a number of time steps
@@ -97,7 +91,6 @@ int main( int argc, char **argv )
         }	
 
         bin_particles(n, particles, num_bins, bin_list, bin_x, bin_y, bin_j);
-        // if (DEBUG) sanity_check(n, num_bins, bin_list);
     
         if( find_option( argc, argv, "-no" ) == -1 )
         {
@@ -123,17 +116,17 @@ int main( int argc, char **argv )
 
     if( find_option( argc, argv, "-no" ) == -1 )
     {
-      if (nabsavg) absavg /= nabsavg;
-    // 
-    //  -The minimum distance absmin between 2 particles during the run of the simulation
-    //  -A Correct simulation will have particles stay at greater than 0.4 (of cutoff) with typical values between .7-.8
-    //  -A simulation where particles don't interact correctly will be less than 0.4 (of cutoff) with typical values between .01-.05
-    //
-    //  -The average distance absavg is ~.95 when most particles are interacting correctly and ~.66 when no particles are interacting
-    //
-    printf( ", absmin = %lf, absavg = %lf", absmin, absavg);
-    if (absmin < 0.4) printf ("\nThe minimum distance is below 0.4 meaning that some particle is not interacting");
-    if (absavg < 0.8) printf ("\nThe average distance is below 0.8 meaning that most particles are not interacting");
+        if (nabsavg) absavg /= nabsavg;
+        // 
+        //  -The minimum distance absmin between 2 particles during the run of the simulation
+        //  -A Correct simulation will have particles stay at greater than 0.4 (of cutoff) with typical values between .7-.8
+        //  -A simulation where particles don't interact correctly will be less than 0.4 (of cutoff) with typical values between .01-.05
+        //
+        //  -The average distance absavg is ~.95 when most particles are interacting correctly and ~.66 when no particles are interacting
+        //
+        printf( ", absmin = %lf, absavg = %lf", absmin, absavg);
+        if (absmin < 0.4) printf ("\nThe minimum distance is below 0.4 meaning that some particle is not interacting");
+        if (absavg < 0.8) printf ("\nThe average distance is below 0.8 meaning that most particles are not interacting");
     }
     printf("\n");     
 

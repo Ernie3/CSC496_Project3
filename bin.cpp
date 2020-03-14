@@ -48,8 +48,6 @@ void set_grid_size(int &x, int &y, int num_bins)
     x = num_bins / y;
 }
 
-// The size of the global board is known from outside of this file
-// Also, this function will also dynamically adjust the size of the bins
 void bin_particles(int n, particle_t *particles, int num_bins, bin_t *bin_list, double bin_x, double bin_y, int num_rows)
 {
     int i;
@@ -106,17 +104,4 @@ void remove_particle(bin_t *bin_list, int i, int j)
     }
 
     bin_list[j].bin_size --;
-}
-
-
-void sanity_check(int n, int num_bins, bin_t *bin_list)
-{
-    int sum = 0;
-    for(int i = 0; i < num_bins; i ++)
-    {
-        sum += bin_list[i].bin_size;
-    }
-    
-    if(sum == n) printf("The total number of particles is unchanged.\n");
-    else printf("Sum = %d, n = %d\n", sum, n);
 }

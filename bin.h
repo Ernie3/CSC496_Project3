@@ -6,7 +6,6 @@
 #include <math.h>
 #include "common.h"
 
-
 typedef struct
 {
     int* indeces;
@@ -34,7 +33,4 @@ void remove_particle(bin_t *bin_list, int i, int j);
 
 // This clears and reallocates memory for one col of the grid from start to end
 void clear_bin_col(bin_t *bin_list, int start, int end, int col, int lda);
-
-// Called only when debugging
-void sanity_check(int n, int num_bins, bin_t *bin_list);
 #endif
